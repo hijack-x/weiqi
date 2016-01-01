@@ -14,7 +14,7 @@ body {font-family: "Courier New", Courier, monospace; font-size: 16px;}
 #chess .chessmans b.hover {font-size: 18px; color: #f0f;}
 #chess .chessmans b.focus {font-size: 18px; color: red;}
 #chess .eventLayer {position: absolute; z-index: 99; left: 0; right: 0; top: 0; bottom: 0;}
-#console {position: fixed; top: 0; left: 0; bottom: 34px; width: 200px; overflow: auto; font-size: 14px;}
+#console {position: fixed; top: 0; left: 0; bottom: 34px; width: 270px; overflow: auto; font-size: 14px;}
 #console .item {line-height: 28px; background: #f0f0f0; word-break: break-all;}
 #console .item:hover {background: #ddd;}
 #console .item:nth-child(odd) {background: #fafafa;}
@@ -22,7 +22,7 @@ body {font-family: "Courier New", Courier, monospace; font-size: 16px;}
 #menu button {width: 100%; margin-bottom: 4px;}
 #menu input {width: 78px; text-align: center; height: 24px; font-size: 16px;}
 #chat {position: fixed; left: 1px; bottom: 1px; line-height: 30px;}
-#chat input {width: 198px; height: 30px; border: 1px solid #ddd; font-size: 16px; text-indent: 5px;}
+#chat input {width: 268px; height: 30px; border: 1px solid #ddd; font-size: 16px; text-indent: 5px;}
 #dialog {position: fixed; z-index: 100; right: 0; bottom: 0; width: 768px; height: 440px; background: #fff; border: 2px solid #ddd; display: none;}
 #dialog .title {height: 30px; line-height: 30px; font-weight: bold; text-align: center;}
 #dialog .body {width: 748px; margin: 0 auto;}
