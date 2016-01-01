@@ -11,13 +11,14 @@ npm install
 start.bat    # windows
 start.sh     # linux
 
-http://localhost:8080/
+http://localhost:8080/          # 19*19
+http://localhost:8080/?size=13  # 13*13
 ```
 
 # screenshot
 ![Screenshot](https://raw.githubusercontent.com/lixianlin/weiqi/master/screenshot.jpg)
 
-# 联网说明
+# 联网对弈说明
 ```
 1、启动服务端(start.bat/start.sh)
 2、把访问地址(http://<IP>:8080/)告诉对方
