@@ -504,7 +504,7 @@ $(function () {
 		var add = record.add;
 		for (var i in add) {
 			var arr = add[i];
-			removeChessman(arr[0], arr[1], arr[3]);
+			removeChessman(arr[0], arr[1], arr[4]);
 		}
 		var eat = record.eat;
 		for (var i in eat) {
@@ -865,10 +865,10 @@ $(function () {
 			$chat.show();
 			$showHide.hide();
 		} else {
-//			$console.hide();
-//			$menu.hide();
-//			$chat.hide();
-//			$showHide.show();
+			$console.hide();
+			$menu.hide();
+			$chat.hide();
+			$showHide.show();
 		}
 	};
 	window.onunload = function () {
