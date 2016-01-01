@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="author" content="QQ:286620466; E-mail:xianlinli@gmail.com" />
+		<title>围棋(GO)</title>
+		<link rel="stylesheet" type="text/css" href="css/weiqi.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.nstSlider.min.css" />
+		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/jquery.rotate.js"></script>
+		<script src="js/jquery-ext.js"></script>
+		<script src="js/socket.io-1.3.7.min.js"></script>
+		<script src="js/sgf.js"></script>
+		<script src="js/weiqi.js"></script>
+	</head>
+	<body oncontextmenu="return false">
+		<div id="chess">
+			<div class="chessboard"></div>
+			<div class="starLabel"></div>
+			<div class="positionLabel"></div>
+			<div class="indicator"></div>
+			<div class="chessmans"></div>
+			<div class="eventLayer"></div>
+		</div>
+		<div id="menu">
+			<div><button type="button" id="togglePositionLabel">切换坐标显示</button></div>
+			<div><button type="button" id="toggleStepLabel">切换手数显示</button></div>
+			<div><button type="button" id="toggleLibertyLabel">切换气数显示</button></div>
+			<div><button type="button" id="rotateRight">顺时针旋转</button></div>
+			<div><button type="button" id="rotateLeft">逆时针旋转</button></div>
+			<div><button type="button" id="restore">恢复上次数据</button></div>
+			<div><button type="button" id="loadSGF">载入SGF棋谱</button></div>
+			<div><button type="button" id="reset">重置数据</button></div>
+			<div><button type="button" id="rollback">后退一步</button></div>
+			<div><button type="button" id="join" disabled="disabled">加入房间</button></div>
+			<div><button type="button" id="ready1" disabled="disabled">执黑子</button></div>
+			<div><button type="button" id="ready0" disabled="disabled">执白子</button></div>
+			<div><button type="button" id="leave" disabled="disabled">离开房间</button></div>
+			<div>模式：<span class="mode">单机</span></div>
+			<div>角色：<span class="role">自由</span></div>
+			<div>用时：<span class="useTime">00:00:00</span></div>
+			<div>手数：<span class="step">0</span></div>
+			<div>走棋：<span class="whoGo">黑子走</span></div>
+			<div>黑子：<span class="blackNum">0</span></div>
+			<div>白子：<span class="whiteNum">0</span></div>
+			<div>延时：<input name="delay" type="text" value="5" maxlength="5" title="恢复/载入延时(毫秒)" /></div>
+			<div>昵称：<input name="name" type="text" value="user001" maxlength="8" title="点击修改昵称" /></div>
+			<div>房间：<input name="room" type="text" value="room001" maxlength="8" title="要加入的房间名称,进入房间前指定" /></div>
+		</div>
+		<div id="console"></div>
+		<div id="chat">
+			<form>
+				<input type="text" autocomplete="off" />
+			</form>
+		</div>
+		<div id="dialog">
+			<div class="title">载入SGF棋谱(支持B、W、AB、AW属性，不支持分支切换)</div>
+			<div class="body">
+				<textarea>
+(;SZ[19]FF[4]GM[1]EV[棋圣战]RO[130]PB[高尾绅路]BR[3d]PW[今村善彰]WR[7d]DT[1994-05-26]
+;B[pd];W[dp];B[pq];W[dd];B[pk];W[kq];B[jd];W[fc];B[pf];W[cn];B[jj];W[lk];B[kl];
+W[ll];B[lm];W[mm];B[ln];W[nl];B[lp];W[pl];B[ql];W[qm];B[qk];W[pn];B[lq];W[gq];
+B[qo];W[po];B[qp];W[rm];B[nk];W[li];B[kk];W[lj];B[ni];W[ji];B[ii];W[jh];B[ih];
+W[ig];B[jg];W[ij];B[hg];W[if];B[kg];W[lh];B[jm];W[nh];B[oh];W[mf];B[le];W[me];
+B[ld];W[oe];B[pe];W[nc];B[gh];W[hf];B[mb];W[mc];B[lc];W[nb];B[hc];W[fg];B[fh];
+W[eh];B[ei];W[gg];B[hh];W[fi];B[hj];W[fj];B[ik];W[eg];B[ng];W[lg];B[md];W[nd];
+B[lf];W[mg];B[nf];W[ne];B[lb];W[no];B[di];W[ek];B[ck];W[cl];B[bl];W[cj];B[dl];
+W[cm];B[dk];W[dj];B[ci];W[bj];B[ej];W[bi];B[fk];W[el];B[ch];W[cg];B[bh];W[bg];
+B[ah];W[ag];B[fl];W[em];B[gj];W[bk];B[dq];W[eq];B[er];W[dr];B[fq];W[ep];B[gr];
+W[fp];B[hq];W[fr];B[gp];W[oq];B[or];W[pp];B[qq];W[nq];B[nr];W[go];B[fq];W[es])
+				</textarea>
+			</div>
+			<div class="buttons">
+				<button name="load">载入</button>
+				<button name="clean">移除注释</button>
+				<button name="close">关闭</button>
+			</div>
+		</div>
+		<div id="showHide"><button>显示面板</button></div>
+		<audio id="audio" src="sound/click.mp3"></audio>
+	</body>
+</html>
