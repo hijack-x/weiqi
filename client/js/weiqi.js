@@ -2,7 +2,7 @@
  * weiqi.js
  * Copyright (c) 2016 LiXianlin <xianlinli at gmail dot com>
  * licensed under the MIT license.
- * https://github.com/lixianlin/weiqi.git
+ * https://github.com/lixianlin/weiqi
  */
 $(function () {
 	// 变量定义
