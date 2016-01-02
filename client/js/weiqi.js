@@ -1,3 +1,9 @@
+/**
+ * weiqi.js
+ * Copyright (c) 2016 LiXianlin <xianlinli at gmail dot com>
+ * licensed under the MIT license.
+ * https://github.com/lixianlin/weiqi.git
+ */
 $(function () {
 	// 变量定义
 	var maxRow = 19; // 最大行数
@@ -43,7 +49,8 @@ $(function () {
 	var $chessmans = $('#chess .chessmans');
 	var $eventLayer = $('#chess .eventLayer');
 	var $console = $('#console');
-	var $consoleItem = $('#console .item');
+	var $log = $('#console #log');
+	var $consoleItem = $('#console #log .item');
 	var $menu = $('#menu');
 	var $menuButtons = $('#menu button');
 	var $mode = $('#menu .mode');
@@ -210,7 +217,7 @@ $(function () {
 				str += '<b style="left: ' + left + 'px; top: ' + top + 'px"></b>';
 			}
 		}
-		$starLabel.append(str);
+		$starLabel.html(str);
 	}
 	function createPositionLabel(maxRow, maxCol) {
 		var str = '';
@@ -226,7 +233,7 @@ $(function () {
 			str += '<b style="top: ' + top + 'px; left: ' + left + 'px">' + getColPositionLabel(col) + '</b>';
 			str += '<b style="bottom: ' + top + 'px; left: ' + left + 'px">' + getColPositionLabel(col) + '</b>';
 		}
-		$positionLabel.append(str);
+		$positionLabel.html(str);
 	}
 	function updateUseTime() {
 		$useTime.text(formatTime(getUseTime()));
@@ -249,8 +256,8 @@ $(function () {
 		var str = '<div class="item"' + attr + '>';
 		str += data;
 		str += '</div>';
-		$console.append(str);
-		$console.scrollTop(99999999);
+		$log.append(str);
+		$log.scrollTop(99999999);
 	}
 	function appendChessmanLog(row, col, color, step, name, type) {
 		var str = getReadablePos(row, col);
@@ -341,7 +348,7 @@ $(function () {
 			{row: row + 1, col: col},
 			{row: row + 1, col: col - 1, ignore: true},
 			{row: row, col: col - 1},
-			{row: row - 1, col: col - 1, ignore: true},
+			{row: row - 1, col: col - 1, ignore: true}
 		];
 		for (var i = 0; i < all.length; ++i) {
 			all[i].color = getChessmanColor(all[i].row, all[i].col);
@@ -486,7 +493,7 @@ $(function () {
 		$chessmans.find('[id=' + id + ']').remove();
 		if (!byEat) {
 			--step;
-			$console.find('[step=' + step2 + ']').remove();
+			$log.find('[step=' + step2 + ']').remove();
 		}
 		if (step > 0) {
 			$chessmans.find('.focus').removeClass('focus');
@@ -527,7 +534,7 @@ $(function () {
 		updateUseTime();
 		updateStatus();
 		$chessmans.empty();
-		$console.empty();
+		$log.empty();
 	}
 	function setName() {
 		var name = $name.val();
@@ -583,20 +590,17 @@ $(function () {
 		var all = decodeFromGOR(str);
 		restoreFromData(all);
 	}
-	function getNameFromKifu(kifu, key) {
-		var root = kifu.root;
-		var property = root.property;
-		return property[key];
-	}
 	function restoreFromSGF(str) {
 		if (str == null || str == '') {
 			alert('数据为空!');
 			return;
 		}
-		var kifu = $.parseSGF(str);
+		var kifu = $.SGF.parse(str);
+		var root = kifu.root;
+		var size = $.SGF.getProperty(root, 'SZ');
 		var defaultName = $name.val();
-		var blackName = getNameFromKifu(kifu, 'PB') || defaultName;
-		var whiteName = getNameFromKifu(kifu, 'PW') || defaultName;
+		var blackName = $.SGF.getProperty(root, 'PB') || defaultName;
+		var whiteName = $.SGF.getProperty(root, 'PW') || defaultName;
 		var processNode = function (node) {
 			var property = node.property;
 			for (var k in property) {
@@ -629,7 +633,11 @@ $(function () {
 			}
 		};
 		lock = true;
-		processNode(kifu.root);
+		if (size != null && (size != maxRow || size != maxCol)) {
+			maxRow = maxCol = size;
+			init(size, size);
+		}
+		processNode(root);
 		lock = false;
 	}
 	function restoreFromData(all) {
@@ -654,6 +662,27 @@ $(function () {
 		};
 		restoreOne();
 	}
+	function init(maxRow, maxCol) {
+		var windowHeight = $(window).height();
+		var minBoardHeight = borderWidth * 2 + cellHeight * (maxRow - 1) + cellSpacing * maxRow;
+		if (windowHeight > minBoardHeight + padding * 2) {
+			var margin = (windowHeight - minBoardHeight - padding * 2) / 2;
+			$chess.css({'margin-top': margin});
+		} else if (windowHeight > minBoardHeight + positionLabelHeight * 2) {
+			var margin = (windowHeight - minBoardHeight - positionLabelHeight * 2) / 2;
+			padding = positionLabelHeight;
+			$chess.css({'margin-top': margin});
+		} else {
+			padding = positionLabelHeight;
+		}
+		var width = borderWidth * 2 + cellWidth * (maxCol - 1) + cellSpacing * maxCol;
+		$chess.css({width: width, padding: padding});
+		$chessboard.css({'border-width': borderWidth});
+		createChessboard(maxRow, maxCol);
+		createStarLabel(maxRow, maxCol);
+		createPositionLabel(maxRow, maxCol);
+		$(window).resize();
+	}
 
 	// 事件绑定
 	$eventLayer.mousemove(function (event) {
@@ -676,9 +705,6 @@ $(function () {
 	});
 	$eventLayer.mouseup(function (event) {
 		if (lock) {
-			return;
-		}
-		if (event.button != 0) { // 不是左键，跳过
 			return;
 		}
 		var arr = getPosByEventAfterAdjust(event);
@@ -844,7 +870,7 @@ $(function () {
 				break;
 			case 'clean':
 				var str = $dialog.find('textarea').val();
-				$dialog.find('textarea').val($.cleanSGF(str, 'C'));
+				$dialog.find('textarea').val($.SGF.clean(str, 'C'));
 				alert('清理完毕!');
 				break;
 			case 'close':
@@ -855,14 +881,12 @@ $(function () {
 	$showHide.click(function () {
 		$console.show();
 		$menu.show();
-		$chat.show();
 		$showHide.hide();
 	});
 	window.onresize = function () {
-		if ($(window).width() > $chess.width() + 600) {
+		if ($(window).width() - $chess.width() > 600) {
 			$console.show();
 			$menu.show();
-			$chat.show();
 			$showHide.hide();
 		} else {
 			$console.hide();
@@ -899,29 +923,11 @@ $(function () {
 	if (location.search) {
 		var m = location.search.match(/size=([0-9]+)/);
 		if (m) {
-			maxRow = maxCol = m[1];
+			maxRow = maxCol = parseInt(m[1]);
 		}
 	}
-	var windowHeight = $(window).height();
-	var minBoardHeight = borderWidth * 2 + cellHeight * (maxRow - 1) + cellSpacing * maxRow;
-	if (windowHeight > minBoardHeight + padding * 2) {
-		var margin = (windowHeight - minBoardHeight - padding * 2) / 2;
-		$chess.css({'margin-top': margin});
-	} else if (windowHeight > minBoardHeight + positionLabelHeight * 2) {
-		var margin = (windowHeight - minBoardHeight - positionLabelHeight * 2) / 2;
-		padding = positionLabelHeight;
-		$chess.css({'margin-top': margin});
-	} else {
-		padding = positionLabelHeight;
-	}
-	var width = borderWidth * 2 + cellWidth * (maxCol - 1) + cellSpacing * maxCol;
-	$chess.css({width: width, padding: padding});
-	$chessboard.css({'border-width': borderWidth});
-	createChessboard(maxRow, maxCol);
-	createStarLabel(maxRow, maxCol);
-	createPositionLabel(maxRow, maxCol);
+	init(maxRow, maxCol);
 	setInterval(updateUseTime, 1000);
-	$(window).resize();
 
 	// socket.io相关处理
 	socket = io();

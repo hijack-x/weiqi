@@ -3,11 +3,13 @@
 	var regNode = /[A-Z]+(\s*((\[\])|(\[(.|\s)*?([^\\]\]))))+/g;
 	var regIdent = /[A-Z]+/;
 	var regProps = /(\[\])|(\[(.|\s)*?([^\\]\]))/g;
-	$.cleanSGF = function (str, ident) {
+	var SGF = {};
+	$.SGF = SGF;
+	SGF.clean = function (str, ident) {
 		var regexp = new RegExp('[^A-Z]' + ident + '((\\[\\])|(\\[(.|\\s)*?([^\\\\]\\]))+)', 'g');
 		return str.replace(regexp, '');
 	};
-	$.parseSGF = function (str) {
+	SGF.parse = function (str) {
 		var kifu = {root: {parent: null, children: [], property: {}}};
 		var stack = [];
 		var node = null;
@@ -54,5 +56,9 @@
 			}
 		}
 		return kifu;
+	};
+	SGF.getProperty = function (node, ident) {
+		var property = node.property;
+		return property[ident];
 	};
 })(jQuery);

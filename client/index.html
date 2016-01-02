@@ -8,12 +8,12 @@
 		<title>围棋(GO)</title>
 		<link rel="stylesheet" type="text/css" href="css/weiqi.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.nstSlider.min.css" />
-		<script src="js/jquery-1.7.2.min.js"></script>
-		<script src="js/jquery.rotate.js"></script>
-		<script src="js/jquery-ext.js"></script>
-		<script src="js/socket.io-1.3.7.min.js"></script>
-		<script src="js/sgf.js"></script>
-		<script src="js/weiqi.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery.rotate.js"></script>
+		<script type="text/javascript" src="js/jquery-ext.js"></script>
+		<script type="text/javascript" src="js/socket.io-1.3.7.min.js"></script>
+		<script type="text/javascript" src="js/sgf.js"></script>
+		<script type="text/javascript" src="js/weiqi.js"></script>
 	</head>
 	<body oncontextmenu="return false">
 		<div id="chess">
@@ -49,27 +49,30 @@
 			<div>昵称：<input name="name" type="text" value="user001" maxlength="8" title="点击修改昵称" /></div>
 			<div>房间：<input name="room" type="text" value="room001" maxlength="8" title="要加入的房间名称,进入房间前指定" /></div>
 		</div>
-		<div id="console"></div>
-		<div id="chat">
-			<form>
-				<input type="text" autocomplete="off" />
-			</form>
+		<div id="console">
+			<div id="log"></div>
+			<div id="input">
+				<form>
+					<input type="text" autocomplete="off" />
+				</form>
+			</div>
 		</div>
 		<div id="dialog">
 			<div class="title">载入SGF棋谱(支持B、W、AB、AW属性，不支持分支切换)</div>
 			<div class="body">
 				<textarea>
-(;SZ[19]FF[4]GM[1]EV[棋圣战]RO[130]PB[高尾绅路]BR[3d]PW[今村善彰]WR[7d]DT[1994-05-26]
-;B[pd];W[dp];B[pq];W[dd];B[pk];W[kq];B[jd];W[fc];B[pf];W[cn];B[jj];W[lk];B[kl];
-W[ll];B[lm];W[mm];B[ln];W[nl];B[lp];W[pl];B[ql];W[qm];B[qk];W[pn];B[lq];W[gq];
-B[qo];W[po];B[qp];W[rm];B[nk];W[li];B[kk];W[lj];B[ni];W[ji];B[ii];W[jh];B[ih];
-W[ig];B[jg];W[ij];B[hg];W[if];B[kg];W[lh];B[jm];W[nh];B[oh];W[mf];B[le];W[me];
-B[ld];W[oe];B[pe];W[nc];B[gh];W[hf];B[mb];W[mc];B[lc];W[nb];B[hc];W[fg];B[fh];
-W[eh];B[ei];W[gg];B[hh];W[fi];B[hj];W[fj];B[ik];W[eg];B[ng];W[lg];B[md];W[nd];
-B[lf];W[mg];B[nf];W[ne];B[lb];W[no];B[di];W[ek];B[ck];W[cl];B[bl];W[cj];B[dl];
-W[cm];B[dk];W[dj];B[ci];W[bj];B[ej];W[bi];B[fk];W[el];B[ch];W[cg];B[bh];W[bg];
-B[ah];W[ag];B[fl];W[em];B[gj];W[bk];B[dq];W[eq];B[er];W[dr];B[fq];W[ep];B[gr];
-W[fp];B[hq];W[fr];B[gp];W[oq];B[or];W[pp];B[qq];W[nq];B[nr];W[go];B[fq];W[es])
+(;SZ[19]FF[4]GM[1]EV[王座战]RO[136]PB[片冈聪]BR[9d]PW[武宫正树]WR[9d]DT[1994-04-14]RE[W+R]
+B[pd];W[dp];B[pq];W[dd];B[pk];W[mp];B[po];W[jp];B[fc];W[id];B[cf];W[fd];B[gd];
+W[fe];B[ec];W[df];B[ge];W[gf];B[hf];W[he];B[gc];W[dc];B[ic];W[hg];B[if];W[jc];
+B[ie];W[ib];B[hd];W[hc];B[dg];W[ef];B[cj];W[gg];B[kd];W[jd];B[kf];W[mc];B[ne];
+W[ch];B[cg];W[dh];B[eh];W[eg];B[bh];W[ei];B[cm];W[fh];B[bi];W[qi];B[qk];W[qf];
+B[re];W[nh];B[oc];W[mf];B[ke];W[gb];B[me];W[qe];B[rd];W[oj];B[nl];W[nb];B[ob];
+W[fq];B[hq];W[ho];B[lq];W[lp];B[kq];W[kp];B[eq];W[ep];B[jq];W[mq];B[fr];W[er];
+B[gr];W[dq];B[lr];W[qp];B[qo];W[bm];B[cl];W[cn];B[bl];W[qq];B[pp];W[pr];B[or];
+W[qr];B[rp];W[rq];B[ro];W[nr];B[rf];W[qg];B[bn];W[bo];B[am];W[oa];B[pa];W[na];
+B[pb];W[rj];B[rk];W[dn];B[ao];W[bp];B[oq];W[os];B[mn];W[km];B[el];W[ce];B[ea];
+W[be];B[af];W[fl];B[fk];W[gk];B[fm];W[gl];B[em];W[gm];B[kk];W[mj];B[rg];W[rh];
+B[mk];W[lj];B[lk];W[bf];B[bg];W[cb])
 				</textarea>
 			</div>
 			<div class="buttons">
