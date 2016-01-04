@@ -63,8 +63,7 @@ $(function () {
 	var $delay = $('#menu [name=delay]');
 	var $name = $('#menu [name=name]');
 	var $room = $('#menu [name=room]');
-	var $chat = $('#chat');
-	var $form = $('#chat form');
+	var $form = $('#input form');
 	var $dialog = $('#dialog');
 	var $showHide = $('#showHide');
 
@@ -891,7 +890,6 @@ $(function () {
 		} else {
 			$console.hide();
 			$menu.hide();
-			$chat.hide();
 			$showHide.show();
 		}
 	};
