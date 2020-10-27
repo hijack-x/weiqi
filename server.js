@@ -125,7 +125,7 @@ function join(socket, data) {
 	var msg = '进入了房间[' + room + ']'; 
 	socket.broadcast.to(room).emit('data', {action: 'msg', msg: getNameBySocket(socket) + msg});
 	socket.emit('data', {action: 'msg', msg: '您' + msg});
-	var ids = io.sockets.adapter.rooms[room];
+	var ids = io.sockets.adapter.rooms[room].sockets;
 	for (var id in ids) {
 		if (id == socket.id) {
 			continue;
