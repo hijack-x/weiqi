@@ -252,6 +252,7 @@ $(function () {
 		$role.text(getRoleName(role));
 	}
 	function appendLog(data, attr) {
+		attr = attr || '';
 		var str = '<div class="item"' + attr + '>';
 		str += data;
 		str += '</div>';
