@@ -3,7 +3,7 @@ A H5 weiqi(GO) game with network support
 
 # install
 ```
-git clone https://github.com/lixianlin/weiqi.git
+git clone https://github.com/hijack-x/weiqi.git
 
 cd weiqi
 npm install
