@@ -16,7 +16,7 @@ http://localhost:8080/?size=13  # 13*13
 ```
 
 # screenshot
-![Screenshot](https://raw.githubusercontent.com/lixianlin/weiqi/master/screenshot.jpg)
+![Screenshot](https://raw.githubusercontent.com/hijack-x/weiqi/master/screenshot.jpg)
 
 # 联网对弈说明
 ```
