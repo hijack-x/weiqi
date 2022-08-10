@@ -7,12 +7,8 @@
     "socket.io": "^1.7.4"
   },
   "author": {
-    "email": "xianlinli@gmail.com",
-    "name": "LiXianlin"
-  },
-  "repository" : {
-    "type" : "git",
-    "url" : "git://github.com/lixianlin/weiqi.git"
-  },
+    "email": "",
+    "name": "hijack"
+  }
   "version": "0.0.1"
 }
