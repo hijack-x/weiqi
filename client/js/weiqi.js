@@ -1,8 +1,8 @@
 /**
  * weiqi.js
- * Copyright (c) 2016 LiXianlin <xianlinli at gmail dot com>
+ * Copyright (c) 2016 hijack-x
  * licensed under the MIT license.
- * https://github.com/lixianlin/weiqi
+ * https://github.com/hijack-x/weiqi
  */
 $(function () {
 	// 变量定义
